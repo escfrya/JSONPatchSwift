@@ -18,27 +18,27 @@ import SwiftyJSON
 class JPSCopyOperationTests: XCTestCase {
     
     func testIfCopyReplaceValueInObjectReturnsExpectedValue() {
-        let json = JSON(data: " { \"foo\" : { \"1\" : 2 }, \"bar\" : { }} ".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let json = JSON(data: " { \"foo\" : { \"1\" : 2 }, \"bar\" : { }} ".dataUsingEncoding(String.Encoding.utf8)!)
         let jsonPatch = try! JPSJsonPatch("{ \"op\": \"copy\", \"path\": \"/bar\", \"from\": \"/foo\" }")
         let resultingJson = try! JPSJsonPatcher.applyPatch(jsonPatch, toJson: json)
-        let expectedJson = JSON(data: " { \"foo\" : { \"1\" : 2 }, \"bar\" : { \"1\" : 2 }} ".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let expectedJson = JSON(data: " { \"foo\" : { \"1\" : 2 }, \"bar\" : { \"1\" : 2 }} ".dataUsingEncoding(String.Encoding.utf8)!)
         XCTAssertEqual(resultingJson, expectedJson)
 
     }
     
     func testIfCopyArrayReturnsExpectedValue() {
-        let json = JSON(data: " { \"foo\" : [1, 2, 3, 4], \"bar\" : []} ".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let json = JSON(data: " { \"foo\" : [1, 2, 3, 4], \"bar\" : []} ".dataUsingEncoding(String.Encoding.utf8)!)
         let jsonPatch = try! JPSJsonPatch("{ \"op\": \"copy\", \"path\": \"/bar\", \"from\": \"/foo\" }")
         let resultingJson = try! JPSJsonPatcher.applyPatch(jsonPatch, toJson: json)
-        let expectedJson = JSON(data: " { \"foo\" : [1, 2, 3, 4], \"bar\" : [1, 2, 3, 4]}".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let expectedJson = JSON(data: " { \"foo\" : [1, 2, 3, 4], \"bar\" : [1, 2, 3, 4]}".dataUsingEncoding(String.Encoding.utf8)!)
         XCTAssertEqual(resultingJson, expectedJson)
     }
     
     func testIfCopyArrayOfObjectsReturnsExpectedValue() {
-        let json = JSON(data: " { \"foo\" : [{\"foo\": \"bar\"}], \"bar\" : {} } ".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let json = JSON(data: " { \"foo\" : [{\"foo\": \"bar\"}], \"bar\" : {} } ".dataUsingEncoding(String.Encoding.utf8)!)
         let jsonPatch = try! JPSJsonPatch("{ \"op\": \"copy\", \"path\": \"/bar\", \"from\": \"/foo/0\" }")
         let resultingJson = try! JPSJsonPatcher.applyPatch(jsonPatch, toJson: json)
-        let expectedJson = JSON(data: " { \"foo\" : [{\"foo\": \"bar\"}], \"bar\" : {\"foo\": \"bar\"}}".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let expectedJson = JSON(data: " { \"foo\" : [{\"foo\": \"bar\"}], \"bar\" : {\"foo\": \"bar\"}}".dataUsingEncoding(String.Encoding.utf8)!)
         XCTAssertEqual(resultingJson, expectedJson)
     }
     
